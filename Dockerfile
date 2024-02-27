@@ -4,7 +4,7 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Copy requirements into docker
-COPY ./requirements.txt /app/
+COPY ./requirements.txt ./
 
 # Install dependencies
-RUN pip install -r /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
