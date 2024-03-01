@@ -1,11 +1,5 @@
-build:
-	docker build -t follow-de-roadmap .
-
-run:
-	docker run --name follow-de-roadmap -d follow-de-roadmap
-
 start:
-	docker start follow-de-roadmap
+	docker compose up -d
 
 stop:
-	docker stop follow-de-roadmap
+	docker compose down
