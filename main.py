@@ -27,16 +27,13 @@ schema = StructType([
 ])
 
 # Read CSV data with schema
-df = spark.read.csv("./dataset/german_credit_risk_data.csv", header=True, schema=schema)
-
-# Name index column to id
-df.show()
+german_credit_df = spark.read.csv("./dataset/german_credit_risk_data.csv", header=True, schema=schema)
 
 # Write data into postgresql
-df.write.jdbc(url=jdbc_url, properties=connection_properties, table="public.german_credit_risk", mode="append")
+german_credit_df.write.jdbc(url=jdbc_url, properties=connection_properties, table="public.german_credit_risk", mode="append")
 
 # Query to check result 
-df2 = spark.read \
+postgres_df = spark.read \
         .format("jdbc") \
         .option("driver", "org.postgresql.Driver") \
         .option("url", jdbc_url) \
@@ -44,7 +41,7 @@ df2 = spark.read \
         .option("password", 1234) \
         .option("dbtable", "public.german_credit_risk").load()
 
-df2.show()
+postgres_df.show()
 
 # Stop SparkSession
 spark.stop()
